@@ -1,0 +1,23 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "## Your Task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakecolledge97/team-profile-creator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakecolledge97/team-profile-creator/issues"
+  },
+  "homepage": "https://github.com/jakecolledge97/team-profile-creator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  }
+}
