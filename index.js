@@ -1,9 +1,12 @@
+//call all 'requires'
 const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Employee = require('./lib/Employee');
+const Skeleton = require('./lib/skeleton.js')
 
+//creates standard employee
 const createEmployee = () => {
     return inquirer.prompt([
         {
@@ -24,13 +27,40 @@ const createEmployee = () => {
     ])
 }
 
+//creates managing employee
 const createManager = () => {
-    createEmployee()
+    //prompts the terminal
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the managers name?',
+            name: 'managerName'
+        },
+        {
+            type: 'input',
+            message: 'What is the managers ID?',
+            name: 'managerId'
+        },
+        {
+            type: 'input',
+            message: 'What is the managers email?',
+            name: 'managerEmail'
+        },
+        {
+            type: 'input',
+            message: 'What is the managers running office?',
+            name: 'managerOffice'
+        }
+    ])
+    //returns prompt answers
     .then((answers) => {
-        const manager = new Employee(answers.name, answers.id, answers.email)
-        console.log(manager)
+        const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOffice)
+        
+        const skeleton = new Skeleton(manager.createHtml())
+        console.log(skeleton.createDiv())
     });
 }
 
+//calls create manager function
 createManager()
 
