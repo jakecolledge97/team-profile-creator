@@ -1,5 +1,6 @@
 //call all 'requires'
 const inquirer = require('inquirer');
+const fs = require('fs');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
@@ -53,7 +54,7 @@ async function init() {
     //while loop to check whether to add more employees
     while(addEmployee){
         //logs current employee
-        console.log(employeeList)
+        //console.log(employeeList)
         //prompts user to check which employee to add next
         await inquirer.prompt([
             {
@@ -128,6 +129,9 @@ async function init() {
 
             }else{
                 console.log(employeeList)
+                const skeleton = new Skeleton(...employeeList)
+                const newHtml = skeleton.createHtmlPage()
+                fs.appendFile('index.html', newHtml, (err) => err ? console.error(err) : console.log('Commit logged!'))
                 addEmployee = false
             }
         })
