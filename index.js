@@ -130,6 +130,7 @@ async function init() {
             }else{
                 console.log(employeeList)
                 const skeleton = new Skeleton(...employeeList)
+                console.log(...employeeList)
                 const newHtml = skeleton.createHtmlPage()
                 fs.appendFile('index.html', newHtml, (err) => err ? console.error(err) : console.log('Commit logged!'))
                 addEmployee = false
