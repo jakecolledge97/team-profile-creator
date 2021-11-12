@@ -9,9 +9,9 @@ const Skeleton = require('./lib/skeleton.js')
 const employeeList = []
 
 //creates managing employee
-const createManager = () => {
+const createManager = async () => {
     //prompts the terminal
-    return inquirer.prompt([
+    const answers = await inquirer.prompt([
         {
             type: 'input',
             message: 'What is the managers name?',
@@ -32,22 +32,29 @@ const createManager = () => {
             message: 'What is the managers running office?',
             name: 'managerOffice'
         }
-    ])
-    //returns prompt answers
-    .then((answers) => {
-        const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOffice)
-        
-        const skeleton = new Skeleton(manager.createHtml())
-        employeeList.push(skeleton)
-    });
+    ]);
+    //creates a manager
+    const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOffice);
+    //creates card info with manager details
+    const skeleton = new Skeleton(manager.createHtml());
+    //creates a column with card
+    const newColumn = skeleton.createDiv()
+    //pushed to an employee list
+    employeeList.push(newColumn);
 }
 
-//calls create manager function
+//starts the application
 async function init() {
+    //boolean for while loop
     let addEmployee = true;
+    //calls create manager
     await createManager()
-    console.log(employeeList)
+    
+    //while loop to check whether to add more employees
     while(addEmployee){
+        //logs current employee
+        console.log(employeeList)
+        //prompts user to check which employee to add next
         await inquirer.prompt([
             {
                 type: 'list',
@@ -56,12 +63,71 @@ async function init() {
                 name: 'addEmployee'
             }
         ])
-        .then((answers) => {
+        //answers for employee
+        .then(async (answers) => {
+            //checks if adding engineer || intern || or none
             if(answers.addEmployee === "Engineer"){
-
+                await inquirer.prompt([
+                    {
+                        type: 'input',
+                        message: 'What is the Engineers name?',
+                        name: 'name'
+                    },
+                    {
+                        type: 'input',
+                        message: 'What is the Engineers id?',
+                        name: 'id'
+                    },
+                    {
+                        type: 'input',
+                        message: 'What is the Engineers Email?',
+                        name: 'email'
+                    },
+                    {
+                        type: 'input',
+                        message: 'What is the Engineers github page?',
+                        name: 'github'
+                    }
+                ])
+                .then((answers) => {
+                    const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
+                    const skeleton = new Skeleton(engineer.createHtml())
+                    const newColumn = skeleton.createDiv()
+                    employeeList.push(newColumn)
+                })
+                
             }else if(answers.addEmployee === "Intern"){
+                await inquirer.prompt([
+                    {
+                        type: 'input',
+                        message: 'What is the Interns name?',
+                        name: 'name'
+                    },
+                    {
+                        type: 'input',
+                        message: 'What is the Interns id?',
+                        name: 'id'
+                    },
+                    {
+                        type: 'input',
+                        message: 'What is the Interns Email?',
+                        name: 'email'
+                    },
+                    {
+                        type: 'input',
+                        message: 'What is the Interns schools name?',
+                        name: 'school'
+                    }
+                ])
+                .then((answers) => {
+                    const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
+                    const skeleton = new Skeleton(intern.createHtml())
+                    const newColumn = skeleton.createDiv()
+                    employeeList.push(newColumn)
+                })
 
             }else{
+                console.log(employeeList)
                 addEmployee = false
             }
         })
@@ -69,6 +135,7 @@ async function init() {
      
 }
 
+//starts app
 init()
 
 
