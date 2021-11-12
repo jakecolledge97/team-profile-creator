@@ -6,26 +6,7 @@ const Intern = require('./lib/Intern');
 const Employee = require('./lib/Employee');
 const Skeleton = require('./lib/skeleton.js')
 
-//creates standard employee
-const createEmployee = () => {
-    return inquirer.prompt([
-        {
-            type: 'input',
-            message: 'What is the Employees name?',
-            name: 'name'
-        },
-        {
-            type: 'input',
-            message: 'What is the employees ID',
-            name: 'id'
-        },
-        {
-            type: 'input',
-            message: 'What is the employees email?',
-            name: 'email'
-        }
-    ])
-}
+const employeeList = []
 
 //creates managing employee
 const createManager = () => {
@@ -57,10 +38,38 @@ const createManager = () => {
         const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOffice)
         
         const skeleton = new Skeleton(manager.createHtml())
-        console.log(skeleton.createDiv())
+        employeeList.push(skeleton)
     });
 }
 
 //calls create manager function
-createManager()
+async function init() {
+    let addEmployee = true;
+    await createManager()
+    console.log(employeeList)
+    while(addEmployee){
+        await inquirer.prompt([
+            {
+                type: 'list',
+                message: 'Add another employee?',
+                choices: ['Engineer', 'Intern', 'None'],
+                name: 'addEmployee'
+            }
+        ])
+        .then((answers) => {
+            if(answers.addEmployee === "Engineer"){
+
+            }else if(answers.addEmployee === "Intern"){
+
+            }else{
+                addEmployee = false
+            }
+        })
+    }
+     
+}
+
+init()
+
+
 
