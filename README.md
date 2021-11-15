@@ -18,7 +18,7 @@ This is a command line application, that will ask the user questions in order to
 
 [Github repository](https://github.com/jakecolledge97/team-profile-creator)
 
-[Example profile page]()
+[Example profile page](https://jakecolledge97.github.io/team-profile-creator/)
 
 ## Installation
 The User will need Node.js installed to run the Application, and Jest in order to do testing.
