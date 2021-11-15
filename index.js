@@ -86,7 +86,7 @@ async function init() {
                     },
                     {
                         type: 'input',
-                        message: 'What is the Engineers github page?',
+                        message: 'What is the Engineers github Account name?',
                         name: 'github'
                     }
                 ])
